@@ -5,15 +5,23 @@ module.exports = {
   mode: 'development',
   entry: {
     index: './src/index.js',
-    print: './src/print.js'
   },
   devtool: 'inline-source-map',
   devServer: {
     static: './dist',
+    hot: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Development',
+      title: 'Hot Module Replacement',
     }),
   ],
   output: {
