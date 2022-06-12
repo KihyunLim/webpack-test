@@ -2,7 +2,10 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    polyfills: './src/polyfills',
+    index: './src/index.js',
+  },
   module: {
     rules: [
       {
@@ -22,7 +25,7 @@ module.exports = {
     }),
   ],
   output: {
-    filename: 'main.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
 };
