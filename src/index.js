@@ -1,12 +1,22 @@
-async function getComponent() {
-  const element = document.createElement('div');
-  const { default: _ } = await import('lodash');
+import _ from 'lodash';
 
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+function component() {
+  const elememt = document.createElement('div');
+  const button = document.createElement('button');
+  const br = document.createElement('br');
 
-  return element;
+  button.innerHTML = 'Click me and look at the console!';
+  elememt.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  elememt.appendChild(br);
+  elememt.appendChild(button);
+
+  button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(module => {
+    const print = module.default;
+
+    print();
+  });
+
+  return elememt;
 }
 
-getComponent().then((component) => {
-  document.body.appendChild(component);
-});
+document.body.appendChild(component());
